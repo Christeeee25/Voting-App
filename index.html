@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+  .card-img-top{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    
+  }
+  #Matthewresult{
+    font-size: 20px;
+  
+  }
+  #hajiyaresult{
+    font-size: 20px;
+  }
+  #Kabiruresult{
+    font-size: 20px;
+  }
+</style>
+  </head>
+<body class=" bg-image bg-cover bg-center" style="background-image:url('images/voting images.jpg')";>
+<h1 class="text-white text-center my-3 fw-bold">VOTING APP   <i class="fa fa-thumbs-up"></i> </h1>
+ 
+  <div id="show">
+  <div class="container bg-warning py-1 mt-10 rounded-3">
+    <div class="d-flex align-items-center">
+      <img src="images/voting images.jpg" alt="" class="w-25 h-25 rounded-circle mx-auto my-auto">
+    </div>
+    
+    <div class="row justify-content-center py-3 my-3 ">
+        <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-4 mb-2">
+        <div class="card">
+        <img src="images/humanicon.jpg" class="card-img-top" alt="...">
+        <div class="card-body rounded-circle">
+          <h5 class="card-title text-center text-primary">Mr. Odunwale Matthew</h5>
+          <div class="text-center">
+            <button class="btn btn-primary" id="Matthew votes" onclick="disableButton(this)">Add Vote</button><br><br>
+            <p id="Matthewresult" class="votes fw-bold text-secondary">Votes:</p>
+          </div>
+          
+          
+          
+        </div>
+      </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card">
+        <img src="images/humanicon3.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center text-primary">Hajiya Samira Muhammed</h5>
+          <div class="text-center">
+            <button class="btn btn-primary" id="Hajiya votes" onclick="disableButton(this)">Add Vote</button><br><br>
+          <p id="hajiyaresult" class="votes fw-bold text-secondary">Votes:</p>
+          </div>
+          
+          
+        </div>
+      </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card">
+        <img src="images/humanicon2.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center text-primary">Mr. Kabiru Hassan</h5>
+          <div class="text-center">
+            <button class="btn btn-primary" id="Kabiru votes" onclick="disableButton(this)">Add Vote</button><br><br>
+            <p id="Kabiruresult" class="votes fw-bold text-secondary fs-large ">Votes:</p>
+          </div>
+          
+        </div>
+      </div>
+        </div>
+     </div>
+    <button id="showResults" class="bg-secondary form-control my-3 text-white">Show Election Result</button> 
+
+    <button class="form-control bg-danger" id="clear-button">Clear Votes</button>
+</div>    
+
+
+  <script>
+    let Matthew_votes = 0;
+    let hajiya_votes = 0;
+    let kabiru_votes = 0;
+    let Matthew_results = document.getElementById("Matthewresult");
+    let hajiya_results = document.getElementById("hajiyaresult");
+    let kabiru_results = document.getElementById("Kabiruresult");
+    let clearBtn = document.getElementById("clear-button");
+
+    document.getElementById("Matthew votes").addEventListener("click", ()=>{
+      Matthew_votes++;
+      Matthew_results.innerHTML = "Votes:  "+  Matthew_votes;
+      saveData();
+      
+    })
+
+   
+    
+    document.getElementById("Hajiya votes").addEventListener("click", ()=>{
+      hajiya_votes++;
+      hajiya_results.innerHTML = "Votes:  "+ hajiya_votes;
+      hajiya();
+    
+    })
+
+    
+    document.getElementById("Kabiru votes").addEventListener("click", ()=>{
+      kabiru_votes++;
+      kabiru_results.innerHTML = "Votes:  "+ kabiru_votes;
+      kabiru();
+    
+      
+    })
+
+    document.getElementById("showResults").addEventListener("click", ()=>{
+
+      if(Matthew_votes > hajiya_votes && Matthew_votes > kabiru_votes){
+        Matthew_results.innerHTML = "Mr. Matthew won the election";
+        hajiya_results.innerHTML = "";
+        kabiru_results.innerHTML = "";
+      }
+      else if(hajiya_votes > Matthew_votes && hajiya_votes > kabiru_votes){
+        Matthew_results.innerHTML = "";
+        hajiya_results.innerHTML = "Hajiya won the elections";
+        kabiru_results.innerHTML = "";
+      }
+      else if(kabiru_votes > Matthew_votes && kabiru_votes > hajiya_votes){
+        Matthew_results.innerHTML = "";
+        hajiya_results.innerHTML = "";
+        kabiru_results.innerHTML = "Kabiru won the elections";
+      }else{
+        Matthew_results.innerHTML = "No Results";
+        hajiya_results.innerHTML = "No Results";
+        kabiru_results.innerHTML = "No Results";
+      }
+     
+    })
+    
+    function disableButton(buttonClicked){
+console.log(buttonClicked.id);
+
+const allBtn = document.querySelectorAll('.btn');
+console.log(allBtn);
+allBtn.forEach((buttonInfo, index)=>{
+  console.log(buttonInfo.id)
+
+  // if(buttonClicked.id !== buttonInfo.id){
+  //   buttonInfo.disabled = true;
+  // }
+
+   if(buttonClicked.id){
+    buttonInfo.disabled = true;
+  }
+})
+  }
+  
+  
+ 
+
+ function saveData(){
+  localStorage.setItem("matthewvotes", Matthewresult.innerHTML);
+}
+function showTask(){
+  Matthewresult.innerHTML = localStorage.getItem("matthewvotes");
+}
+showTask();
+
+function hajiya(){
+  localStorage.setItem("hajiyavotes", hajiyaresult.innerHTML);
+}
+function hajiyatask(){
+  hajiyaresult.innerHTML = localStorage.getItem("hajiyavotes");
+}
+hajiyatask();
+
+function kabiru(){
+  localStorage.setItem("kabivotes", Kabiruresult.innerHTML);
+}
+function kabirutask(){
+  Kabiruresult.innerHTML = localStorage.getItem("kabivotes");
+}
+kabirutask();
+
+
+function clearElection(){
+  clearBtn.addEventListener('click', ()=>{
+    localStorage.clear()
+    Matthew_results.innerHTML = "";
+        hajiya_results.innerHTML = "";
+        kabiru_results.innerHTML = "";
+})
+}
+ clearElection();
+ 
+       </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    </body>
+</html>
